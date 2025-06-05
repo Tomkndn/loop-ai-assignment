@@ -1,9 +1,10 @@
 const express = require("express");
 const { v4: uuidv4 } = require("uuid");
+require("dotenv").config();
 
 const app = express();
 app.use(express.json());
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 // In-memory DB for ingestion status
 const ingestionStore = {};
@@ -15,6 +16,11 @@ const PRIORITY_MAP = {
   MEDIUM: 2,
   LOW: 3,
 };
+
+// test api for health check
+app.get("/", (req, res) => {
+    res.send("Ingestion API is running successfully");
+})
 
 // Ingestion APIS
 
